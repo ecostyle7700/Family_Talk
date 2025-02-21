@@ -11,17 +11,16 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-# **修正①** Familyクラスを正しく定義（UserではなくFamilyを使う）
+# 家族モデル
 class Family(UserMixin, db.Model):
-    __tablename__ = 'families'
     id = db.Column(db.Integer, primary_key=True)
     familyname = db.Column(db.String(150), unique=True, nullable=False)
     magicspell_hash = db.Column(db.String(150), nullable=False)
-    member_1 = db.Column(db.String(50), nullable=False)
-    member_2 = db.Column(db.String(50))
-    member_3 = db.Column(db.String(50))
-    member_4 = db.Column(db.String(50))
-    member_5 = db.Column(db.String(50))
+    member_1 = db.Column(db.String(150), nullable=True)
+    member_2 = db.Column(db.String(150), nullable=True)
+    member_3 = db.Column(db.String(150), nullable=True)
+    member_4 = db.Column(db.String(150), nullable=True)
+    member_5 = db.Column(db.String(150), nullable=True)
 
     def set_magicspell(self, magicspell):
         self.magicspell_hash = generate_password_hash(magicspell)
@@ -29,73 +28,80 @@ class Family(UserMixin, db.Model):
     def check_magicspell(self, magicspell):
         return check_password_hash(self.magicspell_hash, magicspell)
 
-# **修正②** 投稿モデル
+# 投稿モデル
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    family_id = db.Column(db.Integer, db.ForeignKey('families.id'), nullable=False)
+    family_id = db.Column(db.Integer, db.ForeignKey('family.id'), nullable=False)
+    poster = db.Column(db.String(150), nullable=False)
     content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.current_timestamp())
-    poster = db.Column(db.String(50), nullable=False)  # 投稿者の名前を保存
 
-# **修正③** Flask-Login の user_loader
+# ログイン管理
 @login_manager.user_loader
-def load_user(family_id):
-    return db.session.get(Family, int(family_id))  # Family を正しく使う
+def load_family(family_id):
+    return db.session.get(Family, int(family_id))
 
-# **修正④** 投稿一覧ページ（家族のメンバー一覧を取得）
+# ホーム（投稿一覧）
 @app.route('/')
 @login_required
 def index():
     posts = Post.query.filter_by(family_id=current_user.id).order_by(Post.timestamp.desc()).all()
-    
-    family = Family.query.get(current_user.id)  # Family クラスを正しく使う
-    members = [family.member_1, family.member_2, family.member_3, family.member_4, family.member_5]
-    members = [m for m in members if m]  # None の値を除外
-    
+    members = [current_user.familyname, current_user.member_1, current_user.member_2, current_user.member_3, current_user.member_4, current_user.member_5]
+    members = [m for m in members if m]  # Noneを除外
     return render_template('index.html', posts=posts, members=members)
 
-# **修正⑤** 登録処理（Familyを正しく使う）
+# 家族登録
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         familyname = request.form['familyname']
         magicspell = request.form['magicspell']
-        member_1 = request.form['member_1']
-        member_2 = request.form.get('member_2', None)
-        member_3 = request.form.get('member_3', None)
-        member_4 = request.form.get('member_4', None)
-        member_5 = request.form.get('member_5', None)
-
+        member_1 = request.form.get("member_1")
+        member_2 = request.form.get("member_2")
+        member_3 = request.form.get("member_3")
+        member_4 = request.form.get("member_4")
+        member_5 = request.form.get("member_5")       
+        
         if Family.query.filter_by(familyname=familyname).first():
-            flash('このファミリー名は既に登録されています。', 'danger')
+            flash('この家族名は既に使われています。', 'danger')
             return redirect(url_for('register'))
+        # パスワードをハッシュ化
+        magicspell_hash = generate_password_hash(magicspell)
 
-        family = Family(familyname=familyname, member_1=member_1, member_2=member_2,
-                        member_3=member_3, member_4=member_4, member_5=member_5)
-        family.set_magicspell(magicspell)
-        db.session.add(family)
+        # 新しいファミリーを作成
+        new_family = Family(
+            familyname=familyname,
+            magicspell_hash=magicspell_hash,
+            member_1=member_1,
+            member_2=member_2,
+            member_3=member_3,
+            member_4=member_4,
+            member_5=member_5,
+        )
+        db.session.add(new_family)
         db.session.commit()
         flash('登録成功！ログインしてください。', 'success')
         return redirect(url_for('login'))
-
     return render_template('register.html')
 
-# **修正⑥** ログイン処理
+# ログイン
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         familyname = request.form['familyname']
         magicspell = request.form['magicspell']
-        user = Family.query.filter_by(familyname=familyname).first()
-
-        if user and user.check_magicspell(magicspell):
-            login_user(user)
+        
+        family = Family.query.filter_by(familyname=familyname).first()
+        if family and check_password_hash(family.magicspell_hash, magicspell):
+            login_user(family)
             flash('ログインしました！', 'success')
             return redirect(url_for('index'))
         flash('ログイン失敗。ファミリー名またはパスワードが違います。', 'danger')
 
     return render_template('login.html')
 
+
+# ログアウト
 @app.route('/logout')
 @login_required
 def logout():
@@ -103,26 +109,26 @@ def logout():
     flash('ログアウトしました。', 'success')
     return redirect(url_for('login'))
 
-# **修正⑦** 投稿処理（誰が投稿したかを追加）
+# 投稿作成
 @app.route('/post', methods=['POST'])
 @login_required
 def post():
     content = request.form['content']
-    poster = request.form['poster']  # 選択された投稿者
-
-    new_post = Post(family_id=current_user.id, content=content, poster=poster)
+    poster = request.form['poster']
+    new_post = Post(family_id=current_user.id, poster=poster, content=content)
     db.session.add(new_post)
     db.session.commit()
-    
     flash('投稿しました！', 'success')
     return redirect(url_for('index'))
 
-# **修正⑧** データベース初期化コマンド
+# データベース初期化用（初回実行時のみ）
 @app.cli.command("init-db")
 def init_db():
     db.create_all()
     print("データベースを作成しました。")
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Render の環境変数 PORT を取得、なければ 5000 を使用
+    app.run(host="0.0.0.0", port=port, debug=True)  # 1回だけ実行
+

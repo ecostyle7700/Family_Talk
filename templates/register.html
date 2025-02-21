@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +7,31 @@
 </head>
 <body>
     <h1>ユーザー登録</h1>
+
+    <!-- フラッシュメッセージの表示 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <form method="POST">
-       <label>ファミリー名: <input type="text" name="familyname" required></label>
-       <label>パスワード: <input type="password" name="magicspell" required></label>
+       <label>ファミリー名: <input type="text" name="familyname" required placeholder="例: 田中" autofocus></label><Br>
+       <label>パスワード: <input type="password" name="magicspell" required placeholder="パスワードを入力"></label><Br>
+
+       <label>メンバー1: <input type="text" name="member_1" placeholder="メンバー名を入力"></label><Br>
+       <label>メンバー2: <input type="text" name="member_2" placeholder="メンバー名を入力"></label><Br>
+       <label>メンバー3: <input type="text" name="member_3" placeholder="メンバー名を入力"></label><Br>
+       <label>メンバー4: <input type="text" name="member_4" placeholder="メンバー名を入力"></label><Br>
+       <label>メンバー5: <input type="text" name="member_5" placeholder="メンバー名を入力"></label><Br>
+
        <button type="submit">登録</button>
     </form>
-  <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
+
+    <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
 </body>
-</html> 
+
+
+</html>
