@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ファミリートーク</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 </head>
 <body class="theme-orange">
 
@@ -37,8 +37,22 @@
         </div>
     </main>
 
+    <script>
+        // テーマ変更のイベントリスナー
+        document.getElementById("theme-selector").addEventListener("change", function() {
+            document.body.className = this.value;  // 選択したクラスを適用
+            localStorage.setItem("theme", this.value);  // 選択を保存
+        });
+
+        // ページ読み込み時に保存されたテーマを適用
+        window.onload = function() {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                document.getElementById("theme-selector").value = savedTheme;
+            }
+        };
+    </script>
+
 </body>
 </html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
