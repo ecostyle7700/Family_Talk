@@ -19,7 +19,7 @@ login_manager.login_view = 'login'
 class Family(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     familyname = db.Column(db.String(150), unique=True, nullable=False)
-    magicspell_hash = db.Column(db.String(150), nullable=False)
+    magicspell_hash = db.Column(db.String(256), nullable=False)# 150 → 256 に変更
     member_1 = db.Column(db.String(150), nullable=True)
     member_2 = db.Column(db.String(150), nullable=True)
     member_3 = db.Column(db.String(150), nullable=True)
