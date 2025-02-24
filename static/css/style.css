@@ -2,7 +2,7 @@
 body {
     font-family: 'Arial', sans-serif;
     text-align: center;
-    background-color: #fdf6e3;  /* クリーム系の柔らかい背景 */
+    background-color: #fffef6;  /* 新しい優しい背景色 */
     margin: 0;
     padding: 0;
 }
@@ -62,57 +62,13 @@ button {
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    background-color: #ff6600;
     color: white;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-button:hover {
-    background-color: #cc5200;
-}
-
-/* === チャットボックス（メッセージ一覧） === */
-.chat-box {
-    background: #ffe0b3; /* デフォルトはオレンジっぽい色 */
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-/* === 各メッセージのスタイル === */
-.message {
-    width: 90%;
-    background: white;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 8px;
-    text-align: left;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* 名前を強調 */
-strong {
-    font-size: 16px;
-    color: #444;
-}
-
-/* 日時を小さめに */
-.timestamp {
-    font-size: 12px;
-    color: #666;
-    float: right;
-}
-
-/* === テーマごとのカスタマイズ === */
-
-/* オレンジテーマ */
+/* === オレンジテーマ === */
 .theme-orange {
     background-color: #fdf6e3; /* クリーム系背景 */
 }
@@ -130,47 +86,71 @@ strong {
 }
 
 .theme-orange textarea {
-    border: 2px solid #ff6600; /* メッセージ入力の枠色（濃いオレンジ） */
+    border: none; /* 枠を消去 */
 }
 
-/* 優しいブルーテーマ */
+.theme-orange button {
+    background-color: #ff6600; /* オレンジボタン */
+}
+
+.theme-orange button:hover {
+    background-color: #cc5200; /* 濃いオレンジに変更 */
+}
+
+/* === ブルーテーマ === */
 .theme-blue {
-    background-color: #e3f2fd; /* 優しい薄いブルー背景 */
+    background-color: #fffef6; /* 新しい優しい背景色 */
 }
 
 .theme-blue header {
-    background-color: #90caf9; /* 淡いブルーのヘッダー */
+    background-color: #7ea4d6; /* 優しいブルーのヘッダー */
 }
 
 .theme-blue .post-box {
-    background: #64b5f6; /* 優しいブルーの投稿フォーム */
+    background: #4c88d8; /* 濃いブルーの投稿フォーム */
 }
 
 .theme-blue .chat-box {
-    background: #bbdefb; /* 優しいブルーのチャットボックス */
+    background: #7ea4d6; /* 優しいブルーのチャットボックス */
 }
 
 .theme-blue textarea {
-    border: 2px solid #1976d2; /* メッセージ入力の枠色（少し濃いブルー） */
+    border: none; /* 枠を消去 */
 }
 
-/* 優しいピンクテーマ */
+.theme-blue button {
+    background-color: #1153ac; /* ブルーのボタン */
+}
+
+.theme-blue button:hover {
+    background-color: #7ea4d6; /* 薄いブルーに変更 */
+}
+
+/* === ピンクテーマ === */
 .theme-pink {
-    background-color: #fce4ec; /* 優しいピンク背景 */
+    background-color: #fff8ef; /* 優しいピンク背景 */
 }
 
 .theme-pink header {
-    background-color: #f8bbd0; /* 優しいピンクのヘッダー */
+    background-color: #ffe0eb; /* 優しいピンクのヘッダー */
 }
 
 .theme-pink .post-box {
-    background: #f48fb1; /* 優しいピンクの投稿フォーム */
+    background: #fdabc9; /* 濃いピンクの投稿フォーム */
 }
 
 .theme-pink .chat-box {
-    background: #f8bbd0; /* 優しいピンクのチャットボックス */
+    background: #ffe0eb; /* 優しいピンクのチャットボックス */
 }
 
 .theme-pink textarea {
-    border: 2px solid #d81b60; /* メッセージ入力の枠色（少し濃いピンク） */
+    border: none; /* 枠を消去 */
+}
+
+.theme-pink button {
+    background-color: #df6591; /* ピンクのボタン */
+}
+
+.theme-pink button:hover {
+    background-color: #ffe0eb; /* 薄いピンクに変更 */
 }
