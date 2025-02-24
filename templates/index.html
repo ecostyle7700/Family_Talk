@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 </head>
-<body class="theme-orange">
+<body>
 
     <header>
         <h1>ファミリートーク  
@@ -38,7 +38,7 @@
 
             <a href="{{ url_for('logout') }}">ログアウト</a>
         {% else %}
-                <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
+            <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
         {% endif %}
 
         <!-- 投稿一覧 -->
@@ -65,6 +65,9 @@
             if (savedTheme) {
                 document.body.className = savedTheme;
                 document.getElementById("theme-selector").value = savedTheme;
+            } else {
+                document.body.className = "theme-orange"; // デフォルトのテーマをオレンジに設定
+                document.getElementById("theme-selector").value = "theme-orange";
             }
         };
     </script>
