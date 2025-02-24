@@ -34,6 +34,7 @@ main {
 }
 
 /* === 投稿フォーム（オレンジボックス） === */
+/* === 投稿フォーム（オレンジボックス） === */
 .post-box {
     background: #ffaf66; /* デフォルトはオレンジ */
     padding: 20px;
@@ -43,10 +44,12 @@ main {
     align-items: center;
     justify-content: center;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* 親要素の幅を100%に */
 }
 
+/* === テキストエリアのスタイル === */
 textarea {
-    width: 90%;
+    width: 90%; /* 親要素の幅の90% */
     height: 80px;
     border-radius: 8px;
     padding: 10px;
@@ -54,7 +57,10 @@ textarea {
     font-size: 16px;
     resize: none;
     background-color: white; /* メッセージ入力欄は白 */
+    margin: 0 auto; /* 横方向の中央揃え */
+    display: block; /* ブロック要素として表示 */
 }
+
 
 /* === 送信ボタン（目立つオレンジ） === */
 button {
@@ -153,4 +159,113 @@ button {
 
 .theme-pink button:hover {
     background-color: #ffe0eb; /* 薄いピンクに変更 */
+}
+/* === 全体のスタイル === */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #fdf6e3;  /* クリーム系の柔らかい背景 */
+    margin: 0;
+    padding: 0;
+}
+
+.theme-orange {
+    background-color: #fdf6e3;  /* オレンジ背景 */
+}
+
+/* === コンテナ === */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffaf66;  /* オレンジのボックス */
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* === ヘッダー === */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* === 入力フィールド === */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 99, 0, 0.7);
+}
+
+/* === ボタン === */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff6600;  /* オレンジのボタン */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #cc5200;  /* 濃いオレンジ */
+}
+
+/* === リンク === */
+a {
+    color: #ff6600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* .input-group を中央揃えに */
+/* .input-group を中央揃えに */
+.input-group {
+    display: flex;
+    justify-content: center;  /* 横方向の中央揃え */
+    align-items: center;      /* 縦方向の中央揃え */
+    margin: 10px 0;
+}
+
+/* 入力フィールドを調整 */
+.input-group input {
+    width: 100%;               /* フィールドを親要素に合わせて広げる */
+    max-width: 400px;          /* 最大幅を指定して、広すぎないようにする */
+    padding: 10px;
+    border: 2px solid orange; /* 枠線をオレンジに */
+    border-radius: 8px;        /* 枠を丸くする */
+    box-sizing: border-box;    /* パディングを含めてサイズ計算 */
+    display: block;            /* ブロック表示にして中央配置 */
+}
+
+
+/* ボタンも中央揃え */
+.btn {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: orange;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
 }

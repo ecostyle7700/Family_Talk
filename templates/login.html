@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン</title>
+    <title>ログイン - ファミリートーク</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <h1>ログイン</h1>
-
-    <!-- フラッシュメッセージを表示 -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <p class="{{ category }}">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-      <label>ファミリー名: <input type="text" name="familyname" required placeholder="例: 田中" autofocus></label><Br>
-      <label>パスワード: <input type="password" name="magicspell" required placeholder="パスワードを入力"></label><Br>
-      <button type="submit">ログイン</button>
-    </form>
-    <p>アカウントをお持ちでないですか？ <a href="{{ url_for('register') }}">新規登録</a></p>
+<body class="theme-orange">
+    <header>
+        <h1>ファミリートーク</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h2>ログイン</h2>
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="input-group">
+                    <input type="text" name="familyname" placeholder="ファミリー名" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="magicspell" placeholder="パスワード" required>
+                </div>
+                <button type="submit" class="btn">ログイン</button>
+            </form>
+            <p>新しいファミリーですか？ <a href="{{ url_for('register') }}">登録はこちら</a></p>
+        </div>
+    </main>
 </body>
-
 </html>
