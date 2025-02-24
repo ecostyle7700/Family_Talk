@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 </head>
-<body>
-
+<body>   
     <header>
         <h1>ファミリートーク  
             <select id="theme-selector">
@@ -18,7 +17,7 @@
             </select>
         </h1>
     </header>
-
+        
     <main>
         {% if current_user.is_authenticated %}
             <p>こんにちは、{{ current_user.familyname }} 一家さん</p>
@@ -38,7 +37,7 @@
 
             <a href="{{ url_for('logout') }}">ログアウト</a>
         {% else %}
-            <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
+                <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
         {% endif %}
 
         <!-- 投稿一覧 -->
@@ -51,26 +50,6 @@
             {% endfor %}
         </div>
     </main>
-
-    <script>
-        // テーマ変更のイベントリスナー
-        document.getElementById("theme-selector").addEventListener("change", function() {
-            document.body.className = this.value;  // 選択したクラスを適用
-            localStorage.setItem("theme", this.value);  // 選択を保存
-        });
-
-        // ページ読み込み時に保存されたテーマを適用
-        window.onload = function() {
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme) {
-                document.body.className = savedTheme;
-                document.getElementById("theme-selector").value = savedTheme;
-            } else {
-                document.body.className = "theme-orange"; // デフォルトのテーマをオレンジに設定
-                document.getElementById("theme-selector").value = "theme-orange";
-            }
-        };
-    </script>
 
 </body>
 </html>
