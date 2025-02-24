@@ -3,7 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
+from datetime import datetime
+import pytz
 import os
+
+# 日本時間のタイムゾーン設定
+JST = pytz.timezone('Asia/Tokyo')
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///kazoku.db'
@@ -50,6 +55,8 @@ def load_family(family_id):
 @login_required
 def index():
     posts = Post.query.filter_by(family_id=current_user.id).order_by(Post.timestamp.desc()).all()
+    for post in posts:
+        post.timestamp = post.timestamp.replace(tzinfo=pytz.utc).astimezone(JST)
     members = [current_user.familyname, current_user.member_1, current_user.member_2, current_user.member_3, current_user.member_4, current_user.member_5]
     members = [m for m in members if m]  # Noneを除外
     return render_template('index.html', posts=posts, members=members)
