@@ -8,30 +8,45 @@
     </head>
 <body>
     <div class="container">
-    <h1>ユーザー登録</h1>
-    <!-- フラッシュメッセージの表示 -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <p class="{{ category }}">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+        <h1>ユーザー登録</h1>
 
-    <form method="POST">
-       <label>ファミリー名: <input type="text" name="familyname" required placeholder="例: 田中（必須）" autofocus></label><Br>
-       <label>パスワード: <input type="password" name="magicspell" required placeholder="パスワード（必須）"></label><Br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-       <label>メンバー1: <input type="text" name="member_1" placeholder="メンバー1 を入力"></label><Br>
-       <label>メンバー2: <input type="text" name="member_2" placeholder="メンバー2 を入力"></label><Br>
-       <label>メンバー3: <input type="text" name="member_3" placeholder="メンバー3 を入力"></label><Br>
-       <label>メンバー4: <input type="text" name="member_4" placeholder="メンバー4 を入力"></label><Br>
-       <label>メンバー5: <input type="text" name="member_5" placeholder="メンバー5 を入力"></label><Br>
+        <form method="POST">
+            <label>ファミリー名:
+                <input type="text" name="familyname" required placeholder="例: 田中（必須）" autofocus>
+            </label><br>
 
-       <button type="submit">登録</button>
-    </form>
+            <label>パスワード:
+                <input type="password" name="magicspell" required placeholder="パスワード（必須）">
+            </label><br>
 
-    <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
-   </div>
+            <label>メンバー1:
+                <input type="text" name="member_1" placeholder="メンバー1 を入力">
+            </label><br>
+            <label>メンバー2:
+                <input type="text" name="member_2" placeholder="メンバー2 を入力">
+            </label><br>
+            <label>メンバー3:
+                <input type="text" name="member_3" placeholder="メンバー3 を入力">
+            </label><br>
+            <label>メンバー4:
+                <input type="text" name="member_4" placeholder="メンバー4 を入力">
+            </label><br>
+            <label>メンバー5:
+                <input type="text" name="member_5" placeholder="メンバー5 を入力">
+            </label><br>
+
+            <button type="submit">登録</button>
+        </form>
+
+        <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
+    </div>
 </body>
 </html>

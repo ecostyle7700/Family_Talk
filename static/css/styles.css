@@ -4,11 +4,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ffe4e1;
+    background-color: #ffe7d7; /* 背景色を#ffe7d7に変更 */
     margin: 0;
 }
 
 .container {
+    width: 100%;
+    max-width: 400px; /* 最大幅を調整 */
+    margin: 0 auto; /* 横方向に中央寄せ */
     text-align: center;
     background-color: #fff;
     padding: 20px;
@@ -17,7 +20,7 @@ body {
 }
 
 h1 {
-    color: #ff69b4;
+    color: #ff8c42; /* 濃いオレンジ */
 }
 
 form {
@@ -25,16 +28,18 @@ form {
     flex-direction: column;
 }
 
-input {
+input, button {
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #454344;
+    border: 1px solid #d97706; /* 落ち着いたオレンジ系 */
     border-radius: 2px;
     font-size: 16px;
+    width: 100%; /* 幅100%で右端を合わせる */
+    box-sizing: border-box; /* パディングを含めて幅を調整 */
 }
 
 button {
-    background-color: #ff69b4;
+    background-color: #ffa366; /* 濃すぎないオレンジ */
     color: #fff;
     padding: 10px;
     border: none;
@@ -45,53 +50,14 @@ button {
 }
 
 button:hover {
-    background-color: #ff1493;
-}body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #ffe4e1;
-    margin: 0;
+    background-color: #ff7f50; /* 少し濃くなるオレンジ */
 }
 
-.container {
-    text-align: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+p a {
+    color: #ff8c42; /* オレンジ系 */
+    text-decoration: none;
 }
 
-h1 {
-    color: #ff69b4;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #454344;
-    border-radius: 2px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #ff69b4;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ff1493;
+p a:hover {
+    text-decoration: underline;
 }
