@@ -1,58 +1,52 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ユーザー登録</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="theme-orange">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>可愛い登録ページ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    </head>
+<body>
+    <div class="container">
+        <h1>ユーザー登録</h1>
 
-    <header>
-        <h1>ファミリートーク</h1>
-    </header>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-    <main>
-        <div class="container">
-            <h1>ユーザー登録</h1>
+        <form method="POST">
+            <label>ファミリー名:
+                <input type="text" name="familyname" required placeholder="例: 田中（必須）" autofocus>
+            </label><br>
 
-            <!-- フラッシュメッセージの表示 -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <p class="{{ category }}">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            <label>パスワード:
+                <input type="password" name="magicspell" required placeholder="パスワード（必須）">
+            </label><br>
 
-            <form method="POST">
-                <label for="familyname">ファミリー名:</label><br>
-                <input type="text" name="familyname" required placeholder="例: 田中" autofocus><br>
+            <label>メンバー1:
+                <input type="text" name="member_1" placeholder="メンバー1 を入力">
+            </label><br>
+            <label>メンバー2:
+                <input type="text" name="member_2" placeholder="メンバー2 を入力">
+            </label><br>
+            <label>メンバー3:
+                <input type="text" name="member_3" placeholder="メンバー3 を入力">
+            </label><br>
+            <label>メンバー4:
+                <input type="text" name="member_4" placeholder="メンバー4 を入力">
+            </label><br>
+            <label>メンバー5:
+                <input type="text" name="member_5" placeholder="メンバー5 を入力">
+            </label><br>
 
-                <label for="magicspell">パスワード:</label><br>
-                <input type="password" name="magicspell" required placeholder="パスワードを入力"><br>
+            <button type="submit">登録</button>
+        </form>
 
-                <label for="member_1">メンバー1:</label><br>
-                <input type="text" name="member_1" placeholder="メンバー名を入力"><br>
-
-                <label for="member_2">メンバー2:</label><br>
-                <input type="text" name="member_2" placeholder="メンバー名を入力"><br>
-
-                <label for="member_3">メンバー3:</label><br>
-                <input type="text" name="member_3" placeholder="メンバー名を入力"><br>
-
-                <label for="member_4">メンバー4:</label><br>
-                <input type="text" name="member_4" placeholder="メンバー名を入力"><br>
-
-                <label for="member_5">メンバー5:</label><br>
-                <input type="text" name="member_5" placeholder="メンバー名を入力"><br>
-
-                <button type="submit">登録</button>
-            </form>
-
-            <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
-        </div>
-    </main>
-
+        <p>すでに登録済みですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
+    </div>
 </body>
 </html>
