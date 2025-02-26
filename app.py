@@ -4,17 +4,19 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
 from datetime import datetime
+from dotenv import load_dotenv
 import pytz
 import os
+load_dotenv()
 
 # 日本時間のタイムゾーン設定
 JST = pytz.timezone('Asia/Tokyo')
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///kazoku.db'
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://kazoku_user:IUgBxYImYtSB9e5iaI275mWh0qgS7rgb@dpg-cutiknvnoe9s739a6ji0-a.oregon-postgres.render.com/kazoku"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['SECRET_KEY'] = 'your_secret_key'  # セキュリティのため変更推奨
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
