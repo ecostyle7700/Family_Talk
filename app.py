@@ -66,6 +66,7 @@ def index():
     members = [m for m in members if m]  # Noneを除外
     return render_template('index.html', posts=posts, members=members)
 
+# 投稿作成（WebSocketで通知する）
 @app.route('/post', methods=['POST'])
 @login_required
 def post():
@@ -149,17 +150,7 @@ def logout():
     flash('ログアウトしました。', 'success')
     return redirect(url_for('login'))
 
-# 投稿作成
-@app.route('/post', methods=['POST'])
-@login_required
-def post():
-    content = request.form['content']
-    poster = request.form['poster']
-    new_post = Post(family_id=current_user.id, poster=poster, content=content)
-    db.session.add(new_post)
-    db.session.commit()
-    flash('投稿しました！', 'success')
-    return redirect(url_for('index'))
+
 
 # 新しいメッセージを受信したときの処理
 @socketio.on("new_message")
