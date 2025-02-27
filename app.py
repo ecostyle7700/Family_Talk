@@ -3,17 +3,20 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
+from flask_socketio import SocketIO, emit
 from datetime import datetime
 from dotenv import load_dotenv
 import pytz
 import os
+
 load_dotenv()
 
 # 日本時間のタイムゾーン設定
 JST = pytz.timezone('Asia/Tokyo')
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///kazoku.db'
+socketio = SocketIO(app)  # WebSocket を有効化
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
@@ -62,6 +65,30 @@ def index():
     members = [current_user.familyname, current_user.member_1, current_user.member_2, current_user.member_3, current_user.member_4, current_user.member_5]
     members = [m for m in members if m]  # Noneを除外
     return render_template('index.html', posts=posts, members=members)
+
+@app.route('/post', methods=['POST'])
+@login_required
+def post():
+    content = request.form['content']
+    poster = request.form['poster']
+    new_post = Post(family_id=current_user.id, poster=poster, content=content)
+    db.session.add(new_post)
+    db.session.commit()
+
+    post_data = {
+        'poster': new_post.poster,
+        'content': new_post.content,
+        'timestamp': new_post.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+    }
+    socketio.emit('new_post', post_data, broadcast=True)  # WebSocket で全員に送信
+    
+    flash('投稿しました！', 'success')
+    return redirect(url_for('index'))
+
+@socketio.on('connect')
+def handle_connect():
+    print('クライアントが接続しました')
+
 
 # 家族登録
 @app.route('/register', methods=['GET', 'POST'])
@@ -133,6 +160,19 @@ def post():
     db.session.commit()
     flash('投稿しました！', 'success')
     return redirect(url_for('index'))
+
+# 新しいメッセージを受信したときの処理
+@socketio.on("new_message")
+def handle_new_message(data):
+    new_post = Post(family_id=current_user.id, poster=data["poster"], content=data["content"])
+    db.session.add(new_post)
+    db.session.commit()
+
+    # 送信データにタイムスタンプを追加
+    data["timestamp"] = new_post.timestamp.strftime('%Y.%m.%d %H:%M')
+
+    # 全クライアントに新しいメッセージをブロードキャスト
+    emit("receive_message", data, broadcast=True)
 
 # データベース初期化用（初回実行時のみ）
 @app.cli.command("init-db")

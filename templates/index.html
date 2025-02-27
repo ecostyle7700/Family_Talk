@@ -6,6 +6,8 @@
     <title>ファミリートーク</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}" defer></script>
 </head>
 <body>   
     <header>
@@ -30,11 +32,9 @@
                     {% for member in members %}
                         <option value="{{ member }}">{{ member }}</option>
                     {% endfor %}
-                </select>
-                
+                </select> 
                 <button type="submit">投稿</button>
             </form>
-
             <a href="{{ url_for('logout') }}">ログアウト</a>
         {% else %}
                 <a href="{{ url_for('login') }}">ログイン</a> | <a href="{{ url_for('register') }}">新規登録</a>
