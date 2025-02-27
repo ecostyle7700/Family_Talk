@@ -99,8 +99,8 @@ button {
 
 /* 投稿者セレクトボックスのサイズ調整 */
 #poster {
-    font-size: 1.2em;  /* 1.5倍以上のフォントサイズ */
-    height: 2.5em;  /* ボタンよりやや小さめ */
+    font-size: 1.0em;  /* 1.5倍以上のフォントサイズ */
+    height: 2.0em;  /* ボタンよりやや小さめ */
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -187,8 +187,8 @@ strong {
 
 /* ボタンの統一デザイン */
 .btn {
-    font-size: 12px;  /* 日時と同じサイズ */
-    padding: 5px 8px;
+    font-size: 10px;  /* 日時と同じサイズ */
+    padding: 4px 7px;
     border-radius: 5px;
     text-decoration: none;
     margin-left: 5px; /* ボタン間のスペース */
@@ -196,20 +196,20 @@ strong {
 
 /* 削除ボタンと編集ボタンの色 */
 .btn-warning {
-    background-color: #FFC107;
-    color: #333;
+    background-color: #4e0ce6;
+    color: #0c0101;
 }
 
 .btn-danger {
-    background-color: #DC3545;
-    color: white;
+    background-color: #4e0ce6;
+    color: #0c0101;
 }
 
 /* ホバー時の色変更 */
 .btn-warning:hover {
-    background-color: #E0A800;
+    background-color: #3b0776;
 }
 
 .btn-danger:hover {
-    background-color: #C82333;
+    background-color: #3b0776;
 }
