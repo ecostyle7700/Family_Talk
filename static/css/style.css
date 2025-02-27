@@ -97,6 +97,17 @@ button {
     transition: 0.3s;
 }
 
+/* 投稿者セレクトボックスのサイズ調整 */
+#poster {
+    font-size: 1.2em;  /* 1.5倍以上のフォントサイズ */
+    height: 2.5em;  /* ボタンよりやや小さめ */
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
 /* 各テーマごとのボタン色 */
 .theme-orange button {
     background-color: #FF6600;
@@ -164,4 +175,41 @@ strong {
     font-size: 12px;
     color: #666;
     float: right;
+}
+
+/* ボタンと日時を右寄せ */
+.message-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 5px;
+}
+
+/* ボタンの統一デザイン */
+.btn {
+    font-size: 12px;  /* 日時と同じサイズ */
+    padding: 5px 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 5px; /* ボタン間のスペース */
+}
+
+/* 削除ボタンと編集ボタンの色 */
+.btn-warning {
+    background-color: #FFC107;
+    color: #333;
+}
+
+.btn-danger {
+    background-color: #DC3545;
+    color: white;
+}
+
+/* ホバー時の色変更 */
+.btn-warning:hover {
+    background-color: #E0A800;
+}
+
+.btn-danger:hover {
+    background-color: #C82333;
 }
