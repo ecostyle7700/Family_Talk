@@ -66,7 +66,7 @@ def index():
     members = [m for m in members if m]  # Noneを除外
     return render_template('index.html', posts=posts, members=members)
 
-# 投稿作成（WebSocketで通知する）
+# 投稿の作成（WebSocketで通知する）
 @app.route('/post', methods=['POST'])
 @login_required
 def post():
@@ -89,6 +89,36 @@ def post():
 @socketio.on('connect')
 def handle_connect():
     print('クライアントが接続しました')
+
+# 投稿の削除
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+    if post and post.family_id == current_user.id:  # 自分の投稿のみ削除
+        db.session.delete(post)
+        db.session.commit()
+        flash('投稿を削除しました。', 'success')
+    else:
+        flash('削除権限がありません。', 'danger')
+    return redirect(url_for('index'))
+
+# 投稿の編集
+@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.get(post_id)
+    if not post or post.family_id != current_user.id:
+        flash('編集権限がありません。', 'danger')
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        post.content = request.form['content']
+        db.session.commit()
+        flash('投稿を更新しました。', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('edit_post.html', post=post)
 
 
 # 家族登録
@@ -141,7 +171,6 @@ def login():
 
     return render_template('login.html')
 
-
 # ログアウト
 @app.route('/logout')
 @login_required
@@ -149,8 +178,6 @@ def logout():
     logout_user()
     flash('ログアウトしました。', 'success')
     return redirect(url_for('login'))
-
-
 
 # 新しいメッセージを受信したときの処理
 @socketio.on("new_message")
