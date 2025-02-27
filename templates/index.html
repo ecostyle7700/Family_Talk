@@ -46,13 +46,13 @@
             <div class="message">
                 <strong>{{ post.poster }}</strong> {{ post.content }}
                 <span class="timestamp">{{ post.timestamp.strftime('%Y.%m.%d %H:%M') }}</span>
-            <!-- 編集ボタン -->
-            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-warning">編集</a>
+        <!-- 編集ボタン -->
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-warning btn-sm">編集</a>
 
-            <!-- 削除ボタン（確認付き） -->
+        <!-- 削除ボタン（確認付き） -->
             <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('本当に削除しますか？');">削除</button>
-
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('本当に削除しますか？');">削除</button>
+            </form>
         </div>
         {% endfor %}
     </main>
