@@ -9,16 +9,11 @@
 <body>
     <div class="container">
     <h1>投稿編集画面</h1>
-    {% extends "index.html" %}
-
-    {% block content %}
-      <h2>投稿を編集</h2>
-      <form action="{{ url_for('edit_post', post_id=post.id) }}" method="post">
-        <textarea name="content" class="form-control" rows="4">{{ post.content }}</textarea>
-        <button type="submit" class="btn btn-primary mt-2">更新</button>
-      </form>
-      <a href="{{ url_for('index') }}" class="btn btn-secondary mt-2">キャンセル</a>
-    {% endblock %}
-    </div>
+    <h2>投稿を編集</h2>
+    <form method="post">
+        <textarea name="content">{{ post.content }}</textarea>
+        <button type="submit">更新</button>
+    </form>
+    <a href="{{ url_for('index') }}">キャンセル</a>
 </body>
 </html>
