@@ -47,8 +47,10 @@
             <div class="message">
                 <strong>{{ post.poster }}</strong> {{ post.content }}
                 <div class="message-footer">
-                    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-warning btn-sm">編集</a>
-                    <a href="#" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ url_for('delete_post', post_id=post.id) }}')">削除</a>
+                    <!-- 編集ボタン（青文字＋下線） -->
+                    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="edit-link">編集</a>
+                    <!-- 削除ボタン（青文字＋下線、JavaScriptで削除） -->
+                    <a href="#" class="delete-link" onclick="confirmDelete('{{ url_for('delete_post', post_id=post.id) }}')">削除</a>
                     <span class="timestamp">{{ post.timestamp.strftime('%Y.%m.%d %H:%M') }}</span>
                 </div>
             </div>

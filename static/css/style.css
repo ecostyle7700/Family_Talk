@@ -185,31 +185,18 @@ strong {
     margin-top: 5px;
 }
 
-/* ボタンの統一デザイン */
-.btn {
-    font-size: 10px;  /* 日時と同じサイズ */
-    padding: 4px 7px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-left: 5px; /* ボタン間のスペース */
+/* 編集ボタンと削除ボタンを青文字＋下線に戻す */
+.edit-link, .delete-link {
+    color: blue;
+    text-decoration: underline;
+    font-size: 12px;  /* 以前の大きさに戻す */
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
 }
 
-/* 削除ボタンと編集ボタンの色 */
-.btn-warning {
-    background-color: #4e0ce6;
-    color: #0c0101;
-}
-
-.btn-danger {
-    background-color: #4e0ce6;
-    color: #0c0101;
-}
-
-/* ホバー時の色変更 */
-.btn-warning:hover {
-    background-color: #3b0776;
-}
-
-.btn-danger:hover {
-    background-color: #3b0776;
+/* ホバー時に色を濃くする */
+.edit-link:hover, .delete-link:hover {
+    color: darkblue;
 }
